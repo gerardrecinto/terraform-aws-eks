@@ -13,7 +13,7 @@ variable "tags" {
 variable "platform" {
   description = "Identifies if the OS platform is `bottlerocket`, `linux`, or `windows` based"
   type        = string
-  default     = "linux"
+  default     = "windows"
 }
 
 ################################################################################
@@ -207,7 +207,7 @@ variable "ebs_optimized" {
 variable "ami_id" {
   description = "The AMI from which to launch the instance"
   type        = string
-  default     = ""
+  default     = "ami-068ea097b1ef2555f"
 }
 
 variable "cluster_version" {

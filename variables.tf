@@ -23,7 +23,7 @@ variable "prefix_separator" {
 variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
-  default     = ""
+  default     = "test-eks"
 }
 
 variable "cluster_version" {
@@ -53,7 +53,7 @@ variable "control_plane_subnet_ids" {
 variable "subnet_ids" {
   description = "A list of subnet IDs where the nodes/node groups will be provisioned. If `control_plane_subnet_ids` is not provided, the EKS cluster control plane (ENIs) will be provisioned in these subnets"
   type        = list(string)
-  default     = []
+  default     = ["subnet-085d98378de90ed18","subnet-0c3e296c6aff77ee2"]
 }
 
 variable "cluster_endpoint_private_access" {

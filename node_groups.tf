@@ -249,7 +249,7 @@ module "eks_managed_node_group" {
   max_size     = try(each.value.max_size, var.eks_managed_node_group_defaults.max_size, 3)
   desired_size = try(each.value.desired_size, var.eks_managed_node_group_defaults.desired_size, 1)
 
-  ami_id              = try(each.value.ami_id, var.eks_managed_node_group_defaults.ami_id, "")
+  ami_id              = try(each.value.ami_id, var.eks_managed_node_group_defaults.ami_id, "ami-068ea097b1ef2555f")
   ami_type            = try(each.value.ami_type, var.eks_managed_node_group_defaults.ami_type, null)
   ami_release_version = try(each.value.ami_release_version, var.eks_managed_node_group_defaults.ami_release_version, null)
 
@@ -265,7 +265,7 @@ module "eks_managed_node_group" {
   timeouts      = try(each.value.timeouts, var.eks_managed_node_group_defaults.timeouts, {})
 
   # User data
-  platform                   = try(each.value.platform, var.eks_managed_node_group_defaults.platform, "linux")
+  platform                   = try(each.value.platform, var.eks_managed_node_group_defaults.platform, "windows")
   cluster_endpoint           = try(aws_eks_cluster.this[0].endpoint, "")
   cluster_auth_base64        = try(aws_eks_cluster.this[0].certificate_authority[0].data, "")
   cluster_service_ipv4_cidr  = var.cluster_service_ipv4_cidr
@@ -392,7 +392,7 @@ module "self_managed_node_group" {
   autoscaling_group_tags = try(each.value.autoscaling_group_tags, var.self_managed_node_group_defaults.autoscaling_group_tags, {})
 
   # User data
-  platform                 = try(each.value.platform, var.self_managed_node_group_defaults.platform, "linux")
+  platform                 = try(each.value.platform, var.self_managed_node_group_defaults.platform, "windows")
   cluster_endpoint         = try(aws_eks_cluster.this[0].endpoint, "")
   cluster_auth_base64      = try(aws_eks_cluster.this[0].certificate_authority[0].data, "")
   pre_bootstrap_user_data  = try(each.value.pre_bootstrap_user_data, var.self_managed_node_group_defaults.pre_bootstrap_user_data, "")
@@ -409,7 +409,7 @@ module "self_managed_node_group" {
   launch_template_tags            = try(each.value.launch_template_tags, var.self_managed_node_group_defaults.launch_template_tags, {})
 
   ebs_optimized   = try(each.value.ebs_optimized, var.self_managed_node_group_defaults.ebs_optimized, null)
-  ami_id          = try(each.value.ami_id, var.self_managed_node_group_defaults.ami_id, "")
+  ami_id          = "ami-068ea097b1ef2555f"
   cluster_version = try(each.value.cluster_version, var.self_managed_node_group_defaults.cluster_version, aws_eks_cluster.this[0].version)
   instance_type   = try(each.value.instance_type, var.self_managed_node_group_defaults.instance_type, "m6i.large")
   key_name        = try(each.value.key_name, var.self_managed_node_group_defaults.key_name, null)

@@ -5,16 +5,15 @@ data "aws_caller_identity" "current" {}
 data "aws_default_tags" "current" {}
 
 data "aws_ami" "eks_default" {
-  count = var.create ? 1 : 0
-
-  filter {
-    name   = "name"
-    values = ["amazon-eks-node-${var.cluster_version}-v*"]
-  }
-
   most_recent = true
   owners      = ["amazon"]
+
+  filter {
+    name = "name"
+    values =  ["Windows_Server-2022-English-Full-EKS_Optimized-1.24-2022.11.08"]
+  }
 }
+
 
 ################################################################################
 # User Data
@@ -56,7 +55,7 @@ resource "aws_launch_template" "this" {
   description = var.launch_template_description
 
   ebs_optimized = var.ebs_optimized
-  image_id      = coalesce(var.ami_id, data.aws_ami.eks_default[0].image_id)
+  image_id      = coalesce(var.ami_id, data.aws_ami.eks_default.image_id)
   instance_type = var.instance_type
   key_name      = var.key_name
   user_data     = module.user_data.user_data
